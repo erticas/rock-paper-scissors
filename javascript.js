@@ -1,71 +1,94 @@
 //Rock paper scissor game
 
-//User input/choice: Rock/paper/scissor
-let playerInput = prompt("Enter rock, paper, or scissor");
+let scorePlayer = 0; let scoreComputer = 0;                         //Start with 0 scores for both player and computer
 
-//to make it case insensitive:
-let playerSelection = playerInput.toLowerCase();
-
-//Computer input: randomly pick rock/paper/scissor from an array
-let array = ['rock', 'paper', 'scissor'];
-function getComputerChoice() {
-    return array[Math.floor(Math.random() * array.length)];
-}
-
-//One round of game, taking 2 parameters (player and computer selections):
+//One round of game - take 2 parameters (player and computer selections)
 function playRound(playerSelection, computerSelection) {
 
-    //Results:
-    if (playerSelection === 'paper' && computerSelection === 'rock') {
-        console.log("You win! Paper beats Rock");
+    //Possible results:
+    if (playerSelection == 'paper' && computerSelection == 'rock') {
+        return playerWin_round;
     }
 
-    else if (playerSelection === 'rock' && computerSelection === 'scissor') {
-        console.log("You win! Rock beats Scissor");
+    else if (playerSelection == 'paper' && computerSelection == 'scissor') {
+        return computerWin_round;
     }
 
-    else if (playerSelection === 'scissor' && computerSelection === 'paper') {
-        console.log("You win! Scissor beats Paper");
+    else if (playerSelection == 'rock' && computerSelection == 'scissor') {
+        return playerWin_round;
     }
 
-    else if (playerSelection === 'paper' && computerSelection === 'rock') {
-        console.log("You lose! Paper beats Rock");
+    else if (playerSelection == 'rock' && computerSelection == 'paper') {
+        return computerWin_round;
     }
 
-    else if (playerSelection === 'scissor' && computerSelection === 'rock') {
-        console.log("You lose! Rock beats Scissor");
+    else if (playerSelection == 'scissor' && computerSelection == 'paper') {
+        return playerWin_round;
     }
 
-    else if (playerSelection === 'paper' && computerSelection === 'scissor') {
-        console.log("You lose! Scissor beats Paper");
+    else if (playerSelection == 'scissor' && computerSelection == 'rock') {
+        return computerWin_round;
     }
 
-    else if (playerSelection === 'paper' && computerSelection === 'paper') {
-        console.log("It's a tie! Paper can't beat Paper");
-    }
-
-    else if (playerSelection === 'scissor' && computerSelection === 'scissor') {
-        console.log("It's a tie! Scissor can't beat Scissor");
-    }
-
-    else if (playerSelection === 'rock' && computerSelection === 'rock') {
-        console.log("It's a tie! Rock can't beat Rock");
-    }
-    else {
-        console.log("Did you type incorrectly?");
+    else if (playerSelection == computerSelection) {
+        return tie_round;
     }
 }
 
-const computerSelection = getComputerChoice();
-console.log(playRound(playerSelection, computerSelection))
+//Specify win/lose round:
+let playerWin_round = 'Player wins this round'
+let computerWin_round = 'Computer wins this round'
+let tie_round = 'No one wins or loses'
 
-//Keep score and reports winner/loser for a 5 round game
+//1 game = 5 round. ENTER USER INPUT HERE
+for (let i = 1; i < 6; i++) {
+    console.log("Turn " + i);                                        //Indicate turn #
 
-//for (let i = 0; i < 5; i++) {
-//    function game() {
-//        playRound(playerSelection, computerSelection)
-//        let scorePlayer = 0; let scoreComputer = 0;
-//        
-//        console.log(playRound(playerSelection, computerSelection))
-//    }
-//}
+    //User input/choice: Rock/paper/scissor
+    let playerInput = prompt("Enter rock, paper, or scissor");
+    let playerSelection = playerInput.toLowerCase();                 //make it case insensitive
+    console.log("Player selected " + playerSelection);               //Print player selection
+
+    //Computer's input:
+    //Randomly pick rock/paper/scissor from an array
+    let array = ['rock', 'paper', 'scissor'];
+    function getComputerChoice() {
+        return array[Math.floor(Math.random() * array.length)];
+    }
+
+    const computerSelection = getComputerChoice();
+    console.log("Computer selected " + computerSelection);          //Print computer selection
+
+    let roundResult = playRound(playerSelection, computerSelection);
+
+    //Result of a round:
+    console.log(roundResult);
+    gameScore(roundResult);
+    console.log("Player's score is " + scorePlayer);
+    console.log("Computer's score is " + scoreComputer);
+
+}
+
+//Keep score function - NOTE: something is wrong here; BUG: neither scores are getting added
+function gameScore() {
+    let gameResult = playRound();
+    if (gameResult === playerWin_round) {
+        scorePlayer++;
+    }
+    else if (gameResult === computerWin_round) {
+        scoreComputer++;
+    }
+    else {
+        tie_round;
+    }
+}
+
+if (scorePlayer > scoreComputer) {
+    console.log("CONGRATS! YOU WIN THE ROUND XD");
+}
+else if (scorePlayer === scoreComputer) {
+    console.log("It's a tie :)");
+}
+else {
+    console.log("SAD. YOU LOSE THE ROUND. Try again ;)");
+}
