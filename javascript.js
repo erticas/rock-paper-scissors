@@ -1,8 +1,8 @@
 //Rock paper scissor game
 
-let scorePlayer = 0; let scoreComputer = 0;                         //Start with 0 scores for both player and computer
+let scorePlayer = 0; let scoreComputer = 0;                                   //Start with 0 scores for player and computer
 
-//One round of game - take 2 parameters (player and computer selections)
+//One round of game will take 2 parameters (player and computer selections)
 function playRound(playerSelection, computerSelection) {
 
     //Possible results:
@@ -35,42 +35,44 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-//Specify win/lose round:
+//Specify win/lose (and who) in each round
 let playerWin_round = 'Player wins this round'
 let computerWin_round = 'Computer wins this round'
 let tie_round = 'No one wins or loses'
 
-//1 game = 5 round. ENTER USER INPUT HERE
+//One game = 5 round. ENTER USER INPUT HERE
 for (let i = 1; i < 6; i++) {
-    console.log("Turn " + i);                                        //Indicate turn #
+    console.log("Turn " + i);                                                 //Indicate turn #
 
-    //User input/choice: Rock/paper/scissor
+    //User input - type - rock/paper/scissor
     let playerInput = prompt("Enter rock, paper, or scissor");
-    let playerSelection = playerInput.toLowerCase();                 //make it case insensitive
-    console.log("Player selected " + playerSelection);               //Print player selection
+    let playerSelection = playerInput.toLowerCase();                          //Make user's input case insensitive
+    console.log("Player selected " + playerSelection);                        //Print player selection
 
     //Computer's input:
-    //Randomly pick rock/paper/scissor from an array
     let array = ['rock', 'paper', 'scissor'];
-    function getComputerChoice() {
-        return array[Math.floor(Math.random() * array.length)];
+    function getComputerChoice() {                                            //Parameter/argument is blank because randomized
+        return array[Math.floor(Math.random() * array.length)];               //Randomly pick rock/paper/scissor from the array
     }
 
-    const computerSelection = getComputerChoice();
-    console.log("Computer selected " + computerSelection);          //Print computer selection
+    const computerSelection = getComputerChoice();                            //Define and call function as computer selection
+    console.log("Computer selected " + computerSelection);                    //Print computer selection
 
-    let roundResult = playRound(playerSelection, computerSelection);
+    let roundResult = playRound(playerSelection, computerSelection);          //See Line 6: 2 parameters needed
 
     //Result of a round:
-    console.log(roundResult);
-    gameScore(roundResult);
-    console.log("Player's score is " + scorePlayer);
-    console.log("Computer's score is " + scoreComputer);
+    console.log(roundResult);                                                 //Print result of 1 round
+    gameScore(roundResult);                                                   //Call scoring function
+    console.log("Player's score is " + scorePlayer);                          //Print player's score
+    console.log("Computer's score is " + scoreComputer);                      //Print computer's score
 
 }
 
-//Keep score function
-//NOTE: Make sure to input argument roundResult inside the function
+//Track/keep score function
+
+//NOTE: REMEMBER: input argument (roundResult) inside the function. Otherwise, no argument = no result.
+//Need to insert argument as it is not random.
+//roundResult = argument because value is fixed/returned from prior used function
 function gameScore(roundResult) {
     if (roundResult == playerWin_round) {
         scorePlayer++;
