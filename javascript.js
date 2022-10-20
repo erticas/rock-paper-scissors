@@ -69,13 +69,13 @@ for (let i = 1; i < 6; i++) {
 
 }
 
-//Keep score function - NOTE: something is wrong here; BUG: neither scores are getting added
-function gameScore() {
-    let gameResult = playRound();
-    if (gameResult === playerWin_round) {
+//Keep score function
+//NOTE: Make sure to input argument roundResult inside the function
+function gameScore(roundResult) {
+    if (roundResult == playerWin_round) {
         scorePlayer++;
     }
-    else if (gameResult === computerWin_round) {
+    else if (roundResult == computerWin_round) {
         scoreComputer++;
     }
     else {
